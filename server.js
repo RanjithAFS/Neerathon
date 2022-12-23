@@ -5,10 +5,12 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const { ExpressPeerServer } = require("peer");
 const path = require("path");
+
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
+
 const URI = process.env.MONGO_URL;
 mongoose.connect(
   URI,
@@ -25,7 +27,8 @@ mongoose.connect(
 );
 
 const port = process.env.PORT || 5000;
-
+//routes
+app.use("/api", require("./routes/authRouter"));
 app.listen(port, () => {
   console.log("Server is running on port", port);
 });
