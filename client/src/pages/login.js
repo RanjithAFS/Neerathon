@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/actions/authAction";
 import "../styles/auth.css";
 const Login = () => {
+  const history = useHistory();
+  const { auth } = useSelector((state) => state);
   const initialState = { email: "", password: "" };
   const [userData, setUserData] = useState(initialState);
   const { email, password } = userData;
@@ -14,6 +16,10 @@ const Login = () => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
   };
+
+  useEffect(() => {
+    if (auth.token) history.push("/");
+  }, [auth.token, history]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
